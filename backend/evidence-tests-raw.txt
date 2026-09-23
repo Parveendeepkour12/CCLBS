@@ -1,0 +1,491 @@
+
+> cclbs-backend@1.0.0 test
+> node --experimental-sqlite --test tests/*.test.js
+
+TAP version 13
+# (node:1492) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: POST /api/auth/login
+    # Subtest: TC-22 a valid university ID returns a token and profile
+    ok 1 - TC-22 a valid university ID returns a token and profile
+      ---
+      duration_ms: 46.015383
+      type: 'test'
+      ...
+    # Subtest: TC-23 an unknown university ID returns 404 with a machine-readable code
+    ok 2 - TC-23 an unknown university ID returns 404 with a machine-readable code
+      ---
+      duration_ms: 6.605203
+      type: 'test'
+      ...
+    # Subtest: TC-24 a missing university ID returns 400 and names the offending field
+    ok 3 - TC-24 a missing university ID returns 400 and names the offending field
+      ---
+      duration_ms: 3.919018
+      type: 'test'
+      ...
+    1..3
+ok 1 - POST /api/auth/login
+  ---
+  duration_ms: 62.989492
+  type: 'suite'
+  ...
+# Subtest: Session endpoints
+    # Subtest: TC-25 GET /api/auth/me returns the caller identity for a valid token
+    ok 1 - TC-25 GET /api/auth/me returns the caller identity for a valid token
+      ---
+      duration_ms: 6.688552
+      type: 'test'
+      ...
+    # Subtest: TC-26 protected endpoints reject a missing or tampered token with 401
+    ok 2 - TC-26 protected endpoints reject a missing or tampered token with 401
+      ---
+      duration_ms: 8.803601
+      type: 'test'
+      ...
+    # Subtest: TC-27 the service index advertises the contract and security headers are present
+    ok 3 - TC-27 the service index advertises the contract and security headers are present
+      ---
+      duration_ms: 6.251127
+      type: 'test'
+      ...
+    1..3
+ok 2 - Session endpoints
+  ---
+  duration_ms: 22.454324
+  type: 'suite'
+  ...
+# (node:1500) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: POST /api/bookings
+    # Subtest: TC-28 an unauthenticated request is rejected with 401
+    ok 1 - TC-28 an unauthenticated request is rejected with 401
+      ---
+      duration_ms: 53.740466
+      type: 'test'
+      ...
+    # Subtest: TC-29 a student booking is created in pending state
+    ok 2 - TC-29 a student booking is created in pending state
+      ---
+      duration_ms: 7.798962
+      type: 'test'
+      ...
+    # Subtest: TC-30 a faculty booking is created already confirmed
+    ok 3 - TC-30 a faculty booking is created already confirmed
+      ---
+      duration_ms: 7.083082
+      type: 'test'
+      ...
+    # Subtest: TC-31 a clashing request returns 409 and identifies the blocking booking
+    ok 4 - TC-31 a clashing request returns 409 and identifies the blocking booking
+      ---
+      duration_ms: 4.984915
+      type: 'test'
+      ...
+    # Subtest: TC-32 a request exceeding the room capacity returns 400
+    ok 5 - TC-32 a request exceeding the room capacity returns 400
+      ---
+      duration_ms: 4.946282
+      type: 'test'
+      ...
+    # Subtest: TC-33 a request outside operating hours returns 400
+    ok 6 - TC-33 a request outside operating hours returns 400
+      ---
+      duration_ms: 8.740452
+      type: 'test'
+      ...
+    # Subtest: TC-34 a request with a missing purpose returns 400
+    ok 7 - TC-34 a request with a missing purpose returns 400
+      ---
+      duration_ms: 8.461263
+      type: 'test'
+      ...
+    # Subtest: TC-35 a request for a non-existent room returns 404
+    ok 8 - TC-35 a request for a non-existent room returns 404
+      ---
+      duration_ms: 3.359805
+      type: 'test'
+      ...
+    1..8
+ok 3 - POST /api/bookings
+  ---
+  duration_ms: 107.120303
+  type: 'suite'
+  ...
+# Subtest: GET /api/bookings
+    # Subtest: TC-36 a student only ever sees their own bookings
+    ok 1 - TC-36 a student only ever sees their own bookings
+      ---
+      duration_ms: 27.444453
+      type: 'test'
+      ...
+    # Subtest: TC-37 an administrator sees every booking and can filter by status
+    ok 2 - TC-37 an administrator sees every booking and can filter by status
+      ---
+      duration_ms: 7.763895
+      type: 'test'
+      ...
+    # Subtest: TC-38 a student reading somebody else's booking receives 404, not 403
+    ok 3 - TC-38 a student reading somebody else's booking receives 404, not 403
+      ---
+      duration_ms: 7.851516
+      type: 'test'
+      ...
+    # Subtest: TC-39 an unknown booking identifier returns 404
+    ok 4 - TC-39 an unknown booking identifier returns 404
+      ---
+      duration_ms: 2.27865
+      type: 'test'
+      ...
+    1..4
+ok 4 - GET /api/bookings
+  ---
+  duration_ms: 45.851291
+  type: 'suite'
+  ...
+# Subtest: Approval workflow over HTTP
+    # Subtest: TC-40 a student cannot approve and receives 403
+    ok 1 - TC-40 a student cannot approve and receives 403
+      ---
+      duration_ms: 3.212225
+      type: 'test'
+      ...
+    # Subtest: TC-41 an administrator approves, then a repeat approval returns 409
+    ok 2 - TC-41 an administrator approves, then a repeat approval returns 409
+      ---
+      duration_ms: 7.199934
+      type: 'test'
+      ...
+    # Subtest: TC-42 a rejected booking cannot then be cancelled
+    ok 3 - TC-42 a rejected booking cannot then be cancelled
+      ---
+      duration_ms: 14.322188
+      type: 'test'
+      ...
+    # Subtest: TC-43 the owner can cancel their own pending booking
+    ok 4 - TC-43 the owner can cancel their own pending booking
+      ---
+      duration_ms: 6.6334
+      type: 'test'
+      ...
+    1..4
+ok 5 - Approval workflow over HTTP
+  ---
+  duration_ms: 31.735155
+  type: 'suite'
+  ...
+# Subtest: PATCH /api/bookings/:id
+    # Subtest: TC-44 a reschedule into an occupied slot is refused with 409
+    ok 1 - TC-44 a reschedule into an occupied slot is refused with 409
+      ---
+      duration_ms: 12.174389
+      type: 'test'
+      ...
+    # Subtest: TC-45 a valid reschedule is persisted
+    ok 2 - TC-45 a valid reschedule is persisted
+      ---
+      duration_ms: 7.233414
+      type: 'test'
+      ...
+    1..2
+ok 6 - PATCH /api/bookings/:id
+  ---
+  duration_ms: 19.600006
+  type: 'suite'
+  ...
+# (node:1508) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: GET /api/rooms
+    # Subtest: TC-46 the catalogue returns all eight seeded rooms with parsed equipment
+    ok 1 - TC-46 the catalogue returns all eight seeded rooms with parsed equipment
+      ---
+      duration_ms: 39.569957
+      type: 'test'
+      ...
+    # Subtest: TC-47 filters narrow by type, building, capacity, equipment and keyword
+    ok 2 - TC-47 filters narrow by type, building, capacity, equipment and keyword
+      ---
+      duration_ms: 23.398491
+      type: 'test'
+      ...
+    # Subtest: TC-48 an unknown room identifier returns 404
+    ok 3 - TC-48 an unknown room identifier returns 404
+      ---
+      duration_ms: 6.623229
+      type: 'test'
+      ...
+    # Subtest: TC-49 the availability grid returns one entry per opening hour
+    ok 4 - TC-49 the availability grid returns one entry per opening hour
+      ---
+      duration_ms: 5.821258
+      type: 'test'
+      ...
+    # Subtest: TC-50 availability without a date parameter returns 400
+    ok 5 - TC-50 availability without a date parameter returns 400
+      ---
+      duration_ms: 4.507195
+      type: 'test'
+      ...
+    1..5
+ok 7 - GET /api/rooms
+  ---
+  duration_ms: 91.430519
+  type: 'suite'
+  ...
+# Subtest: Administrator room management
+    # Subtest: TC-51 a student cannot create a room
+    ok 1 - TC-51 a student cannot create a room
+      ---
+      duration_ms: 14.78908
+      type: 'test'
+      ...
+    # Subtest: TC-52 an administrator creates a room and a duplicate code is refused
+    ok 2 - TC-52 an administrator creates a room and a duplicate code is refused
+      ---
+      duration_ms: 8.230171
+      type: 'test'
+      ...
+    # Subtest: TC-53 an administrator updates a room field
+    ok 3 - TC-53 an administrator updates a room field
+      ---
+      duration_ms: 3.771258
+      type: 'test'
+      ...
+    # Subtest: TC-54 deactivating a room with live bookings is refused
+    ok 4 - TC-54 deactivating a room with live bookings is refused
+      ---
+      duration_ms: 14.029239
+      type: 'test'
+      ...
+    # Subtest: TC-55 a room with no live bookings can be deactivated and hidden from the catalogue
+    ok 5 - TC-55 a room with no live bookings can be deactivated and hidden from the catalogue
+      ---
+      duration_ms: 15.470329
+      type: 'test'
+      ...
+    1..5
+ok 8 - Administrator room management
+  ---
+  duration_ms: 56.932023
+  type: 'suite'
+  ...
+# Subtest: Analytics
+    # Subtest: TC-56 the summary is consistent with the booking list it aggregates
+    ok 1 - TC-56 the summary is consistent with the booking list it aggregates
+      ---
+      duration_ms: 5.210712
+      type: 'test'
+      ...
+    # Subtest: TC-57 utilisation returns one row per room with integer booked hours
+    ok 2 - TC-57 utilisation returns one row per room with integer booked hours
+      ---
+      duration_ms: 2.215457
+      type: 'test'
+      ...
+    # Subtest: TC-58 bookings-by-room returns every room, including rooms with no bookings
+    ok 3 - TC-58 bookings-by-room returns every room, including rooms with no bookings
+      ---
+      duration_ms: 1.922478
+      type: 'test'
+      ...
+    # Subtest: TC-59 a student cannot read analytics
+    ok 4 - TC-59 a student cannot read analytics
+      ---
+      duration_ms: 6.472985
+      type: 'test'
+      ...
+    1..4
+ok 9 - Analytics
+  ---
+  duration_ms: 16.102141
+  type: 'suite'
+  ...
+# Subtest: User administration
+    # Subtest: TC-60 an administrator changes a role, and an invalid role is refused
+    ok 1 - TC-60 an administrator changes a role, and an invalid role is refused
+      ---
+      duration_ms: 6.910243
+      type: 'test'
+      ...
+    # Subtest: TC-61 the last administrator cannot remove their own admin role
+    ok 2 - TC-61 the last administrator cannot remove their own admin role
+      ---
+      duration_ms: 2.376798
+      type: 'test'
+      ...
+    # Subtest: TC-62 an administrator cannot deactivate their own account
+    ok 3 - TC-62 an administrator cannot deactivate their own account
+      ---
+      duration_ms: 3.236033
+      type: 'test'
+      ...
+    1..3
+ok 10 - User administration
+  ---
+  duration_ms: 12.733781
+  type: 'suite'
+  ...
+# Subtest: End-to-end booking journey
+    # Subtest: TC-63 availability → request → approval → list reflects the full happy path
+    ok 1 - TC-63 availability → request → approval → list reflects the full happy path
+      ---
+      duration_ms: 16.811614
+      type: 'test'
+      ...
+    1..1
+ok 11 - End-to-end booking journey
+  ---
+  duration_ms: 16.992169
+  type: 'suite'
+  ...
+# (node:1516) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: Booking rule engine
+    # Subtest: TC-09 rejects a slot outside campus operating hours
+    ok 1 - TC-09 rejects a slot outside campus operating hours
+      ---
+      duration_ms: 1.49724
+      type: 'test'
+      ...
+    # Subtest: TC-10 rejects a reversed or zero-length slot
+    ok 2 - TC-10 rejects a reversed or zero-length slot
+      ---
+      duration_ms: 0.253605
+      type: 'test'
+      ...
+    # Subtest: TC-11 rejects attendance above the room capacity
+    ok 3 - TC-11 rejects attendance above the room capacity
+      ---
+      duration_ms: 0.504376
+      type: 'test'
+      ...
+    # Subtest: TC-12 rejects a date in the past
+    ok 4 - TC-12 rejects a date in the past
+      ---
+      duration_ms: 0.273061
+      type: 'test'
+      ...
+    # Subtest: TC-13 rejects a date beyond the maximum booking window
+    ok 5 - TC-13 rejects a date beyond the maximum booking window
+      ---
+      duration_ms: 0.207247
+      type: 'test'
+      ...
+    # Subtest: TC-14 rejects an unknown room
+    ok 6 - TC-14 rejects an unknown room
+      ---
+      duration_ms: 0.276489
+      type: 'test'
+      ...
+    # Subtest: TC-15 accepts an available slot and returns the room record
+    ok 7 - TC-15 accepts an available slot and returns the room record
+      ---
+      duration_ms: 0.210435
+      type: 'test'
+      ...
+    # Subtest: TC-16 detects an overlapping confirmed booking but allows a back-to-back slot
+    ok 8 - TC-16 detects an overlapping confirmed booking but allows a back-to-back slot
+      ---
+      duration_ms: 1.221282
+      type: 'test'
+      ...
+    # Subtest: TC-17 students receive a pending booking, staff are auto-confirmed
+    ok 9 - TC-17 students receive a pending booking, staff are auto-confirmed
+      ---
+      duration_ms: 1.080516
+      type: 'test'
+      ...
+    # Subtest: TC-18 approval workflow enforces valid transitions only
+    ok 10 - TC-18 approval workflow enforces valid transitions only
+      ---
+      duration_ms: 1.486061
+      type: 'test'
+      ...
+    # Subtest: TC-19 a non-administrator cannot approve, and a non-owner cannot cancel
+    ok 11 - TC-19 a non-administrator cannot approve, and a non-owner cannot cancel
+      ---
+      duration_ms: 0.614054
+      type: 'test'
+      ...
+    # Subtest: TC-20 availability grid covers opening to closing hours and hides booked hours
+    ok 12 - TC-20 availability grid covers opening to closing hours and hides booked hours
+      ---
+      duration_ms: 0.926254
+      type: 'test'
+      ...
+    # Subtest: TC-21 generated booking codes follow the BK-XXXXXX contract
+    ok 13 - TC-21 generated booking codes follow the BK-XXXXXX contract
+      ---
+      duration_ms: 0.273365
+      type: 'test'
+      ...
+    1..13
+ok 12 - Booking rule engine
+  ---
+  duration_ms: 10.314483
+  type: 'suite'
+  ...
+# Subtest: Validation helpers
+    # Subtest: TC-01 requireString trims and returns a valid value
+    ok 1 - TC-01 requireString trims and returns a valid value
+      ---
+      duration_ms: 0.790627
+      type: 'test'
+      ...
+    # Subtest: TC-02 requireString rejects a missing field with a 400 envelope
+    ok 2 - TC-02 requireString rejects a missing field with a 400 envelope
+      ---
+      duration_ms: 0.514259
+      type: 'test'
+      ...
+    # Subtest: TC-03 requireString rejects a value below the minimum length
+    ok 3 - TC-03 requireString rejects a value below the minimum length
+      ---
+      duration_ms: 0.171082
+      type: 'test'
+      ...
+    # Subtest: TC-04 optionalInt accepts a numeric string and applies bounds
+    ok 4 - TC-04 optionalInt accepts a numeric string and applies bounds
+      ---
+      duration_ms: 0.254843
+      type: 'test'
+      ...
+    # Subtest: TC-05 optionalInt returns undefined for an absent field and rejects decimals
+    ok 5 - TC-05 optionalInt returns undefined for an absent field and rejects decimals
+      ---
+      duration_ms: 0.238816
+      type: 'test'
+      ...
+    # Subtest: TC-06 requireEnum accepts a member and rejects a non-member
+    ok 6 - TC-06 requireEnum accepts a member and rejects a non-member
+      ---
+      duration_ms: 0.186401
+      type: 'test'
+      ...
+    # Subtest: TC-07 requireISODate rejects malformed and impossible dates
+    ok 7 - TC-07 requireISODate rejects malformed and impossible dates
+      ---
+      duration_ms: 0.597169
+      type: 'test'
+      ...
+    # Subtest: TC-08 todayISO returns a YYYY-MM-DD string derived from the injected clock
+    ok 8 - TC-08 todayISO returns a YYYY-MM-DD string derived from the injected clock
+      ---
+      duration_ms: 0.196885
+      type: 'test'
+      ...
+    1..8
+ok 13 - Validation helpers
+  ---
+  duration_ms: 5.171305
+  type: 'suite'
+  ...
+1..13
+# tests 63
+# suites 13
+# pass 63
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1115.10191

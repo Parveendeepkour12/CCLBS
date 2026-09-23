@@ -1,0 +1,20 @@
+{
+  "name": "cclbs-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "REST backend for the Classroom & Computer Laboratory Booking System (CCLBS)",
+  "type": "module",
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "scripts": {
+    "start": "node --experimental-sqlite src/server.js",
+    "dev": "node --experimental-sqlite --watch src/server.js",
+    "seed": "node --experimental-sqlite scripts/seed.js",
+    "test": "node --experimental-sqlite --test tests/*.test.js",
+    "typecheck": "node --check src/app.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
